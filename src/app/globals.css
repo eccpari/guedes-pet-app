@@ -1,0 +1,118 @@
+@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700;800&family=Playfair+Display:wght@600;700&display=swap');
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --font-display: 'Playfair Display', Georgia, serif;
+  --font-body: 'Nunito', system-ui, sans-serif;
+}
+
+html {
+  font-family: var(--font-body);
+  -webkit-tap-highlight-color: transparent;
+}
+
+body {
+  @apply bg-neutral-50 text-neutral-900 antialiased;
+  /* Garantir scroll suave no mobile */
+  -webkit-overflow-scrolling: touch;
+}
+
+/* Remover outline padrão, manter acessibilidade */
+*:focus-visible {
+  @apply outline-2 outline-offset-2 outline-brand-500;
+}
+
+/* Scrollbar customizada */
+::-webkit-scrollbar { width: 6px; height: 6px; }
+::-webkit-scrollbar-track { @apply bg-neutral-100; }
+::-webkit-scrollbar-thumb { @apply bg-neutral-300 rounded-full; }
+::-webkit-scrollbar-thumb:hover { @apply bg-neutral-400; }
+
+/* Classes utilitárias do app */
+@layer components {
+  .btn-primary {
+    @apply bg-brand-500 text-white font-semibold px-5 py-3 rounded-2xl
+           hover:bg-brand-600 active:scale-95 transition-all duration-150
+           disabled:opacity-50 disabled:cursor-not-allowed shadow-card;
+  }
+
+  .btn-secondary {
+    @apply bg-white text-brand-700 font-semibold px-5 py-3 rounded-2xl
+           border-2 border-brand-200 hover:bg-brand-50 active:scale-95
+           transition-all duration-150 disabled:opacity-50;
+  }
+
+  .btn-accent {
+    @apply bg-accent-400 text-white font-semibold px-5 py-3 rounded-2xl
+           hover:bg-accent-500 active:scale-95 transition-all duration-150
+           disabled:opacity-50 shadow-card;
+  }
+
+  .btn-danger {
+    @apply bg-red-500 text-white font-semibold px-5 py-3 rounded-2xl
+           hover:bg-red-600 active:scale-95 transition-all duration-150
+           disabled:opacity-50;
+  }
+
+  .card {
+    @apply bg-white rounded-3xl shadow-card p-4;
+  }
+
+  .input {
+    @apply w-full bg-neutral-100 border-2 border-transparent rounded-2xl
+           px-4 py-3 text-neutral-900 placeholder-neutral-400
+           focus:border-brand-400 focus:bg-white focus:outline-none
+           transition-all duration-150;
+  }
+
+  .label {
+    @apply block text-sm font-semibold text-neutral-600 mb-1;
+  }
+
+  .badge {
+    @apply inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-xs font-semibold;
+  }
+
+  .page-title {
+    @apply text-2xl font-bold text-neutral-900;
+    font-family: var(--font-display);
+  }
+
+  .section-title {
+    @apply text-lg font-bold text-neutral-800;
+  }
+}
+
+/* Animação de entrada suave */
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(12px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.animate-fade-in-up {
+  animation: fadeInUp 0.25s ease-out forwards;
+}
+
+/* Skeleton loading */
+@keyframes shimmer {
+  0%   { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+.skeleton {
+  background: linear-gradient(90deg, #e4e2de 25%, #f0efed 50%, #e4e2de 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.4s ease infinite;
+  border-radius: 0.75rem;
+}
+
+/* PWA: remover bounce scroll no iOS */
+html, body {
+  overscroll-behavior: none;
+}
+
+/* Safe area para iPhones com notch */
+.safe-top    { padding-top: env(safe-area-inset-top); }
+.safe-bottom { padding-bottom: env(safe-area-inset-bottom); }
